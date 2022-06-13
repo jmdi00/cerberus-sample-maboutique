@@ -16,7 +16,6 @@ jobs:
       
     
   run_Tests_UAT:
-    needs: sonarcloud
     name: Run_Tests_UAT
     runs-on: ubuntu-latest
     steps:
