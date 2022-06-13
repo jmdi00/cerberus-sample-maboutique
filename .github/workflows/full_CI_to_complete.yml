@@ -13,17 +13,563 @@ jobs:
     - uses: actions/checkout@v2
     - name: Checkout source and build
       run: echo Hello, world!
+      
+      
+
+Skip to content
+Pull requests
+Issues
+Marketplace
+Explore
+@jmdi00
+cerberustesting /
+cerberus-sample-maboutique
+Public
+
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+
+    Insights
+
+cerberustesting/cerberus-sample-maboutique
+1 branch
+0 tags
+Latest commit
+@bcivel
+bcivel Update README.md
+a44d431
+2 hours ago
+Git stats
+
+    57 commits
+
+Files
+Type
+Name
+Latest commit message
+Commit time
+.github/workflows
+Update testing.yml
+15 hours ago
+storefront
+Update 404.php
+17 hours ago
+LICENSE
+Initial commit
+12 days ago
+README.md
+Update README.md
+2 hours ago
+sonar-project.properties
+Update sonar-project.properties
+19 hours ago
+README.md
+Implémenter le Continuous Testing
+
+Ce projet sert de support à l'atelier Implémenter le Continuous Testing
+
+
+ 
+
+Plan :
+
+    ETAPE 1 : FORK le projet cerberustesting/cerberus-sample-maboutique.
+    ETAPE 2 : Ajout d'une Github Actions Qualité de code.
+    ETAPE 3 : Ajout des tests automatiques dans la CI.
+
+
+ 
+
+Utiliser chrome ou firefox de préférence
+
+    Url : https://jftl.cerberus-testing.fr
+
+Read/Write pour ceux qui veulent pratiquer en live :)
+
+    User : jftl
+    Pass : jftl
+
+
+ 
+ETAPE 1 : FORK le projet cerberustesting/cerberus-sample-maboutique
+
+    Depuis le projet github https://github.com/cerberustesting/cerberus-sample-maboutique, fork l’application sur votre repository perso
+
+
+ 
+
+Capture d’écran 2022-06-11 à 00 22 09
+
+
+ 
+
+    Valider la creation du fork
+
+
+ 
+
+Capture d’écran 2022-06-11 à 00 23 40
+
+
+ 
+
+Vous devriez être redirigé sur votre fork (Cf. ci dessous)
+
+
+ 
+
+Capture d’écran 2022-06-11 à 00 35 05
+
+
+ 
+ETAPE 2 : Ajout d'une Github Actions Qualité de code
+
+    Aller sur la page https://sonarcloud.io/
+
+    Choisir de parser un nouveau projet github
+
+
+ 
+
+Capture d’écran 2022-06-12 à 09 37 10
+
+
+ 
+
+    Cliquer sur + (ajouter un nouveau repository)
+
+
+ 
+
+Capture d’écran 2022-06-12 à 09 39 18
+
+
+ 
+
+    Choisir une organisation, choisir votre organisation perso, cliquer sur only select repository, choisir le projet "ma boutique" et cliquer sur install
+
+
+ 
+
+Capture d’écran 2022-06-12 à 09 40 25
+
+Capture d’écran 2022-06-12 à 09 40 57
+
+Capture d’écran 2022-06-12 à 09 42 08
+
+
+ 
+
+5.Créer une organisation
+
+
+ 
+
+Capture d’écran 2022-06-12 à 09 43 25
+
+
+ 
+
+    Choisir Free plan
+
+
+ 
+
+Capture d’écran 2022-06-12 à 09 43 53
+
+
+ 
+
+    Selectionner et cliquer sur setup
+
+
+ 
+
+Capture d’écran 2022-06-12 à 09 44 34
+
+
+ 
+
+    Dans Sonar, vous arrivez sur cette page
+
+
+ 
+
+Capture d’écran 2022-06-12 à 11 05 22
+
+
+ 
+Configurer
+
+    Cliquer sur Administration > Analysis Method
+
+
+ 
+
+Capture d’écran 2022-06-12 à 20 33 53
+
+
+ 
+
+    Désactiver le scan automatique
+
+
+ 
+
+Capture d’écran 2022-06-12 à 20 56 18
+
+
+ 
+
+    Cliquer sur la configuration via github actions
+
+
+ 
+
+Capture d’écran 2022-06-12 à 20 57 40
+
+
+ 
+
+    Copier le Token SONAR_TOKEN
+
+Capture d’écran 2022-06-12 à 20 58 26
+
+
+ 
+
+    Choisir Other, et copier la configuration
+
+Capture d’écran 2022-06-12 à 21 02 13
+
+
+ 
+
+sonarcloud:
+    needs: build
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
+ 
+
+    Copier les propriétés
+
+sonar.projectKey
+sonar.organization
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 19 45
+
+
+ 
+Configurer votre projet Github
+
+
+ 
+
+    Dand Github, aller dans Settings > Secrets > Actions
+
+
+ 
+
+    Cliquer sur New repository secret
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 32 35
+
+
+ 
+
+    Name : SONAR_TOKEN
+    Value : Le token sauvegardé
+
+
+ 
+
+    Changer les propiétés du fichier de propriété sonar-project.properties par les propiétés récupérées dans Sonar
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 36 25
+
+
+ 
+
+    Modifier le fichier /.github/workflows/full_CI_to_complete.yml
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 41 40
+
+
+ 
+
+Cliquer sur edit
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 42 50
+
+
+ 
+
+Coller la configuration ci dessous :
+
+
+ 
 
   sonarcloud:
-      needs: build
-      name: SonarCloud
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-        - name: SonarCloud Scan
-          uses: SonarSource/sonarcloud-github-action@master
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    needs: build
+    name: SonarCloud
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+
+ 
+
+Vous obtenez ce résultat :
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 43 47
+
+
+ 
+
+Cliquer sur Start Commit
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 44 52
+
+
+ 
+
+Depuis la page Actions, vérifier la bonne execution de la CI
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 52 59
+
+
+ 
+
+Dans Sonar, vérifier le résultat :
+
+
+ 
+
+Capture d’écran 2022-06-12 à 11 17 34
+
+
+ 
+Lancer un changement pour tester la Quality Gate
+
+
+ 
+
+Créer un nouveau fichier
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 53 23
+
+
+ 
+
+Nommez le Newfile.js et renseigner le contenu suivant
+
+
+ 
+
+var names = ["Mike","Matt","Nancy","Adam","Jenny","Nancy","Carl"];
+var uniqueNames = [];
+$.each(names, function(i, el){
+    if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+});
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 55 49
+
+
+ 
+
+Commit New File
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 56 05
+
+
+ 
+
+Depuis la page Actions, vérifier l'execution de la CI. Vous devriez avoir un KO sur la scan Sonarcloud
+
+
+ 
+
+Capture d’écran 2022-06-12 à 21 58 30
+
+
+ 
+
+Dans Sonarcloud, vérifier la status
+
+
+ 
+
+Capture d’écran 2022-06-12 à 11 23 12
+
+
+ 
+
+cliquer sur "See full Analysis"
+
+
+ 
+
+Capture d’écran 2022-06-12 à 11 36 28
+
+
+ 
+
+Cliquer sur A rating required
+
+
+ 
+
+Analyser les changements à appliquer
+
+
+ 
+
+Capture d’écran 2022-06-12 à 11 37 14
+
+
+ 
+
+Dans github, modifier le fichier
+
+
+ 
+
+let names = ["Mike","Matt","Nancy","Adam","Jenny","Nancy","Carl"];
+let uniqueNames = [];
+$.each(names, function(_i, el){
+    if($.inArray(el, uniqueNames) === -1) uniqueNames.push(el);
+});
+
+
+ 
+
+Commit et vérifier la correction des erreurs
+
+
+ 
+
+Capture d’écran 2022-06-12 à 11 40 48
+ETAPE 3 : Ajout des tests automatiques dans la CI
+
+
+ 
+
+    Dans Github aller sur la page Settings > Secrets > Actions
+
+
+  Capture d’écran 2022-06-13 à 11 26 41
+
+
+ 
+
+    Ajouter un nouveau "Repository Secret"
+
+
+ 
+
+    Name : APIKEY
+    Value : l'APIKEY réupéré dans Cerberus > Administration > Parameters.
+
+
+ 
+
+Capture d’écran 2022-06-13 à 11 22 26
+
+
+ 
+
+    Aller sur l'onglet Action
+
+
+ 
+
+Capture d’écran 2022-06-12 à 18 31 54
+
+
+ 
+
+    Cliquer sur Full_CI_to_complete.yml
+
+
+ 
+
+Capture d’écran 2022-06-12 à 22 03 23
+
+&nbsp;
+
+    Cliquer sur edit et ajouter la configuration ci dessous
+
+
+ 
+
+  run_Tests_UAT:
+    needs: sonarcloud
+    name: Run_Tests_UAT
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: cerberus-action
+      uses: cerberustesting/cerberus-github-action@v6
+      with:
+        host: https://jftl.cerberus-testing.fr
+        campaign: SanityCheck
+        apikey: ${{ secrets.APIKEY }}
+        author: ${{ github.event.pusher.name }}
+        environment: UAT
+        tag: ${TAG}
